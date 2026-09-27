@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f6f2ea">
+  <title>Tạo lời chào — Bảo Duy &amp; Uyên Phương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="maker">
+    <section class="maker__panel" id="lock">
+      <p class="eyebrow">RIÊNG TƯ</p>
+      <h1>Lời chào</h1>
+      <p>Chỉ người nhà mới ghi tên khách ở đây.</p>
+      <form id="lockForm">
+        <label for="password">MẬT KHẨU</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">VÀO</button>
+      </form>
+      <p class="maker__note" id="lockError" hidden>Mật khẩu chưa đúng.</p>
+    </section>
+
+    <section class="maker__panel" id="writer" hidden>
+      <p class="eyebrow">GHI TÊN KHÁCH</p>
+      <h1>Thân gửi</h1>
+      <p>Gõ cách xưng hô, rồi gửi mỗi người một link. Người khác mở trang chính sẽ không thấy tên này.</p>
+      <form id="nameForm">
+        <label for="guest">XƯNG HÔ</label>
+        <input id="guest" name="guest" maxlength="48" placeholder="bạn Thiện" required>
+        <p class="maker__preview" id="preview">Thân gửi bạn Thiện</p>
+        <button class="button" type="submit">TẠO LINK</button>
+      </form>
+      <p class="maker__link" id="result" hidden></p>
+      <button class="button" id="copy" type="button" hidden>SAO CHÉP LINK</button>
+    </section>
+  </main>
+  <script>
+    const PASSWORD = "kinhmoi2026";
+    const lock = document.querySelector("#lock");
+    const writer = document.querySelector("#writer");
+    const guest = document.querySelector("#guest");
+    const preview = document.querySelector("#preview");
+    const result = document.querySelector("#result");
+    const copy = document.querySelector("#copy");
+
+    function openWriter() {
+      lock.hidden = true;
+      writer.hidden = false;
+      guest.focus();
+    }
+
+    if (sessionStorage.getItem("invite-maker") === "ok") openWriter();
+
+    document.querySelector("#lockForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const error = document.querySelector("#lockError");
+      if (document.querySelector("#password").value !== PASSWORD) {
+        error.hidden = false;
+        return;
+      }
+      sessionStorage.setItem("invite-maker", "ok");
+      openWriter();
+    });
+
+    guest.addEventListener("input", () => {
+      const name = guest.value.replace(/\s+/g, " ").trim();
+      preview.textContent = name ? `Thân gửi ${name}` : "Thân gửi";
+    });
+
+    document.querySelector("#nameForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = guest.value.replace(/\s+/g, " ").trim().slice(0, 48);
+      if (!name) return;
+      const link = `${location.origin}${location.pathname.replace(/loi-chao\.html$/, "")}?ten=${encodeURIComponent(name)}`;
+      result.textContent = link;
+      result.hidden = false;
+      copy.hidden = false;
+      copy.dataset.link = link;
+      copy.textContent = "SAO CHÉP LINK";
+    });
+
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(copy.dataset.link);
+        copy.textContent = "ĐÃ SAO CHÉP";
+      } catch {
+        window.prompt("Sao chép link này:", copy.dataset.link);
+      }
+    });
+  </script>
+</body>
+</html>

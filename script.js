@@ -1,3 +1,16 @@
+function showGuestGreeting() {
+  const raw = new URLSearchParams(window.location.search).get("ten");
+  if (!raw) return;
+  const name = raw.replace(/\s+/g, " ").trim().slice(0, 48);
+  if (!name) return;
+  const greeting = document.querySelector("#guestGreeting");
+  if (!greeting) return;
+  greeting.textContent = `Thân gửi ${name}`;
+  greeting.hidden = false;
+}
+
+showGuestGreeting();
+
 const countdownTarget = new Date("2026-10-31T17:30:00+07:00").getTime();
 
 function updateCountdown() {
