@@ -3,184 +3,667 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f2ea">
-  <meta name="description" content="Thiệp cưới Bảo Duy & Uyên Phương — 31.10.2026">
-  <meta property="og:title" content="Bảo Duy & Uyên Phương — 31.10.2026">
+  <meta name="theme-color" content="#f4efe6">
+  <meta name="description" content="Thiệp cưới Chung Thuận & Kim Uyên — 29.12.2026">
+  <meta property="og:title" content="Chung Thuận & Kim Uyên — 29.12.2026">
   <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi.">
   <meta property="og:type" content="website">
-  <title>Bảo Duy & Uyên Phương — 31.10.2026</title>
+  <meta property="og:image" content="images/uyenthuan/ut-1.jpg">
+  <title>Chung Thuận & Kim Uyên — 29.12.2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f4efe6;
+      --paper: #fbf8f2;
+      --sage: #66734f;
+      --olive: #3f4a36;
+      --ink: #2f3329;
+      --muted: #4f5247;
+      --gold: #b39b6b;
+      --line: rgba(63, 74, 54, .18);
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --script: "Great Vibes", cursive;
+      --sans: "Be Vietnam Pro", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.locked { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .card {
+      width: 100%;
+      background: var(--cream);
+      overflow: hidden;
+      position: relative;
+    }
+    section { padding: 72px 28px; text-align: center; position: relative; }
+    /* Full-width page: photos span the screen, text stays in a readable column */
+    section:not(.hero):not(.banner):not(.closing) > * { max-width: 600px; margin-left: auto; margin-right: auto; }
+    section.gallery:not(.hero):not(.banner):not(.closing) > .grid { max-width: 960px; }
+
+    .eyebrow {
+      font-size: 12.5px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+    }
+    .script { font-family: var(--script); font-weight: 400; color: var(--olive); }
+    .serif { font-family: var(--serif); }
+    h2.title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 34px;
+      line-height: 1.15;
+      color: var(--olive);
+      margin: 10px 0 0;
+    }
+    .divider {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      color: var(--gold); margin: 18px auto; font-size: 16px;
+    }
+    .divider::before, .divider::after {
+      content: ""; width: 56px; height: 1px; background: currentColor; opacity: .6;
+    }
+
+    /* ---------- Envelope ---------- */
+    .envelope {
+      position: fixed; inset: 0; z-index: 50;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 50% 40%, #fbf8f2 0%, #e9e2d3 70%);
+      transition: opacity .9s ease, visibility .9s;
+    }
+    .envelope.gone { opacity: 0; visibility: hidden; }
+    .env {
+      position: relative; width: min(84vw, 360px); aspect-ratio: 1.45;
+      cursor: pointer; perspective: 1000px;
+    }
+    .env__back, .env__front, .env__flap, .env__letter { position: absolute; }
+    .env__back { inset: 0; background: #8f9a7c; border-radius: 6px; }
+    .env__letter {
+      left: 6%; right: 6%; top: 8%; bottom: 6%;
+      background: var(--paper); border-radius: 4px;
+      display: grid; place-items: center; text-align: center;
+      padding: 12px; transition: transform 1s cubic-bezier(.2,.8,.2,1) .5s;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+    .env__letter > div { opacity: 0; transition: opacity .5s ease .8s; }
+    .env.open .env__letter > div { opacity: 1; }
+    .env__letter .script { font-size: 34px; line-height: 1.1; }
+    .env__letter small { font-size: 12px; letter-spacing: .3em; color: var(--sage); }
+    .env__front {
+      inset: 0; border-radius: 6px; pointer-events: none;
+      background:
+        linear-gradient(to top right, #7d896a 50%, transparent 50.5%) left bottom / 50.5% 100% no-repeat,
+        linear-gradient(to top left, #7d896a 50%, transparent 50.5%) right bottom / 50.5% 100% no-repeat;
+      z-index: 3;
+    }
+    .env__flap {
+      left: 0; right: 0; top: 0; height: 58%;
+      background: #6f7b5d;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top; transition: transform .7s ease;
+      z-index: 4;
+    }
+    .env__seal {
+      position: absolute; left: 50%; top: 52%; z-index: 5;
+      width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #d6bd87, #a98a4f);
+      color: #fff8e8; display: grid; place-items: center;
+      font-family: var(--script); font-size: 17px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.25);
+      transition: opacity .4s, transform .4s;
+    }
+    .env.open .env__seal { opacity: 0; transform: scale(.6); }
+    .env.open .env__flap { transform: rotateX(180deg); z-index: 1; }
+    .env.open .env__letter { transform: translateY(-46%); z-index: 2; }
+    .envelope__hint {
+      margin-top: 28px; text-align: center; color: var(--olive);
+    }
+    .envelope__guest { font-family: var(--serif); font-style: italic; font-size: 22px; min-height: 1em; }
+    .envelope__tap {
+      margin-top: 8px; font-size: 12.5px; letter-spacing: .3em; color: var(--sage);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: .35; } }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 0; height: 100vh; height: 100svh; min-height: 560px; color: #fff; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(30,34,26,.35) 0%, rgba(30,34,26,0) 28%, rgba(30,34,26,0) 50%, rgba(30,34,26,.7) 100%);
+    }
+    .hero__top, .hero__bottom { position: absolute; left: 0; right: 0; z-index: 2; }
+    .hero__top { top: 40px; }
+    .hero__top .eyebrow { color: #fff; opacity: .9; }
+    .hero__bottom { bottom: 48px; padding: 0 20px; }
+    .hero__names { font-family: var(--script); font-size: clamp(52px, 8vw, 120px); line-height: 1.05; text-shadow: 0 2px 18px rgba(0,0,0,.35); }
+    .hero__names span { display: block; font-size: .5em; margin: 2px 0; opacity: .85; }
+    .hero__date { margin-top: 14px; font-family: var(--serif); font-size: clamp(22px, 2.6vw, 34px); letter-spacing: .35em; }
+
+    /* ---------- Quote ---------- */
+    .quote { background: var(--paper); padding: 64px 32px; }
+    .quote p { font-family: var(--serif); font-weight: 500; font-style: italic; font-size: 24px; line-height: 1.4; color: var(--olive); }
+    .quote small { display: block; margin-top: 14px; font-size: 13.5px; color: var(--muted); letter-spacing: .08em; }
+
+    /* ---------- Couple ---------- */
+    .couple__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 34px; }
+    .person img {
+      width: 100%; aspect-ratio: 3/4.4; object-fit: cover;
+      border-radius: 200px 200px 6px 6px;
+    }
+    .person__role { margin-top: 14px; font-size: 12.5px; letter-spacing: .3em; color: var(--sage); }
+    .person__name { font-family: var(--script); font-size: 30px; line-height: 1.2; color: var(--olive); }
+    .person__full { font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--muted); }
+
+    /* ---------- Families ---------- */
+    .families { background: var(--paper); }
+    .families__grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 16px; margin-top: 28px; text-align: center; }
+    .families__grid .vr { background: var(--line); }
+    .family h3 { font-family: var(--serif); font-weight: 600; font-size: 20px; color: var(--olive); letter-spacing: .06em; }
+    .family p b { font-weight: 600; }
+    .family p { font-size: 15.5px; margin-top: 8px; }
+    .family .addr { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+    .invite-line { margin-top: 40px; }
+    .invite-line .script { font-size: 40px; }
+    .invite-line p { font-size: 16px; color: var(--muted); max-width: 360px; margin: 6px auto 0; }
+
+    /* ---------- Event ---------- */
+    .event { padding-top: 64px; }
+    .event__block { padding: 28px 0 8px; }
+    .event__block + .event__block { border-top: 1px solid var(--line); margin-top: 28px; }
+    .event__name { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--olive); letter-spacing: .04em; text-transform: uppercase; }
+    .event__time { margin-top: 8px; font-size: 14.5px; letter-spacing: .24em; color: var(--sage); font-weight: 500; }
+    .datebar { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 16px 0 6px; color: var(--olive); }
+    .datebar .side {
+      width: 108px; padding: 6px 0; border-top: 1px solid var(--olive); border-bottom: 1px solid var(--olive);
+      font-size: 13.5px; letter-spacing: .24em; font-weight: 500;
+    }
+    .datebar .day { font-family: var(--serif); font-size: 64px; line-height: 1; font-weight: 500; }
+    .lunar { font-family: var(--serif); font-weight: 500; font-style: italic; font-size: 18px; color: var(--muted); }
+    .venue { margin-top: 18px; }
+    .venue strong { display: block; font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--olive); }
+    .venue span { display: block; font-size: 15.5px; color: var(--muted); margin-top: 2px; }
+    .times { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px auto 0; max-width: 320px; }
+    .times div { border: 1px solid var(--line); border-radius: 10px; padding: 12px 6px; background: var(--paper); }
+    .times b { display: block; font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--olive); line-height: 1.1; }
+    .times small { font-size: 12.5px; letter-spacing: .18em; color: var(--sage); text-transform: uppercase; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+      padding: 11px 22px; border-radius: 999px; border: 1px solid var(--olive);
+      color: var(--olive); text-decoration: none; font-size: 13.5px; letter-spacing: .2em; font-weight: 500;
+      transition: background .25s, color .25s;
+    }
+    .btn:hover { background: var(--olive); color: var(--cream); }
+    .btn svg { width: 14px; height: 14px; }
+
+    /* ---------- Banner photo ---------- */
+    .banner { padding: 0; }
+    .banner img { width: 100%; height: min(100svh, 125vw); object-fit: cover; object-position: 50% 60%; }
+    .banner__caption {
+      position: absolute; left: 0; right: 0; top: 34px; color: #fff;
+      font-family: var(--script); font-size: 54px; text-shadow: 0 2px 16px rgba(0,0,0,.4);
+    }
+    .banner__caption small { display: block; font-family: var(--sans); font-size: 12.5px; letter-spacing: .4em; }
+
+    /* ---------- Calendar ---------- */
+    .calendar { background: var(--paper); }
+    .cal { max-width: 330px; margin: 26px auto 0; }
+    .cal__head { font-family: var(--serif); font-size: 24px; color: var(--olive); font-weight: 600; letter-spacing: .1em; }
+    .cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px 0; margin-top: 16px; font-size: 16px; }
+    .cal__grid .wd { font-size: 12.5px; letter-spacing: .1em; color: var(--sage); font-weight: 500; padding-bottom: 6px; }
+    .cal__grid .d { height: 38px; display: grid; place-items: center; position: relative; }
+    .cal__grid .d.mark { color: #fff; font-weight: 600; }
+    .cal__grid .d.mark::before {
+      content: ""; position: absolute; width: 38px; height: 34px; z-index: -1;
+      background: var(--sage);
+      clip-path: path("M19 33 C19 33 1 22 1 11 C1 5 5.5 1 10.5 1 C14.5 1 17.5 3.5 19 6.5 C20.5 3.5 23.5 1 27.5 1 C32.5 1 37 5 37 11 C37 22 19 33 19 33 Z");
+      animation: beat 1.4s ease-in-out infinite;
+    }
+    .cal__grid .d.mark { isolation: isolate; }
+    @keyframes beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } }
+
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 340px; margin: 34px auto 0; }
+    .countdown div { background: var(--cream); border-radius: 10px; padding: 12px 0; border: 1px solid var(--line); }
+    .countdown b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 600; color: var(--olive); line-height: 1.1; }
+    .countdown small { font-size: 12px; letter-spacing: .2em; color: var(--sage); text-transform: uppercase; }
+
+    /* ---------- Timeline ---------- */
+    .timeline { list-style: none; margin: 34px auto 0; max-width: 340px; position: relative; text-align: left; }
+    .timeline::before { content: ""; position: absolute; left: 70px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+    .timeline li { display: grid; grid-template-columns: 56px 1fr; gap: 30px; padding: 12px 0; position: relative; }
+    .timeline li::before {
+      content: ""; position: absolute; left: 66px; top: 21px; width: 9px; height: 9px; border-radius: 50%;
+      background: var(--cream); border: 1px solid var(--sage);
+    }
+    .timeline time { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--olive); text-align: right; line-height: 1.6; }
+    .timeline b { display: block; font-weight: 500; font-size: 16.5px; color: var(--ink); }
+    .timeline span { font-size: 14.5px; color: var(--muted); }
+
+    /* ---------- Gallery ---------- */
+    .gallery { background: var(--paper); }
+    .gallery .title em { font-family: var(--script); font-style: normal; font-weight: 400; font-size: 1.15em; color: var(--sage); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 30px; }
+    .grid button { border: 0; padding: 0; background: none; cursor: zoom-in; overflow: hidden; border-radius: 4px; }
+    .grid img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4; transition: transform .6s ease; }
+    .grid button:hover img { transform: scale(1.04); }
+    .grid .wide { grid-column: span 2; }
+    .grid .wide img { aspect-ratio: 3/2; }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 60; background: rgba(20,22,18,.94);
+      display: none; align-items: center; justify-content: center;
+    }
+    .lightbox.show { display: flex; }
+    .lightbox img { max-width: 94vw; max-height: 84vh; object-fit: contain; border-radius: 2px; }
+    .lightbox button {
+      position: absolute; background: none; border: 0; color: #fff; cursor: pointer;
+      font-size: 30px; width: 52px; height: 52px; opacity: .85;
+    }
+    .lb-close { top: 10px; right: 10px; }
+    .lb-prev { left: 4px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 4px; top: 50%; transform: translateY(-50%); }
+    .lb-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: #fff; font-size: 13.5px; letter-spacing: .3em; opacity: .75; }
+
+    /* ---------- Closing ---------- */
+    .closing { padding: 0; color: #fff; }
+    .closing img { width: 100%; height: min(100svh, 147vw); object-fit: cover; object-position: 50% 75%; }
+    .closing::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(30,34,26,0) 40%, rgba(30,34,26,.75) 100%); }
+    .closing__text { position: absolute; left: 0; right: 0; bottom: 44px; z-index: 2; padding: 0 28px; }
+    .closing__text .script { color: #fff; font-size: 48px; line-height: 1.1; }
+    .closing__text p { font-size: 15.5px; margin-top: 10px; opacity: .92; }
+    footer { padding: 26px; text-align: center; font-size: 12.5px; letter-spacing: .3em; color: var(--muted); background: var(--cream); }
+
+    /* ---------- Petals ---------- */
+    .petals { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+    .petal {
+      position: absolute; top: -20px; width: 12px; height: 10px;
+      background: rgba(255,255,255,.9); border-radius: 12px 0 12px 0;
+      box-shadow: 0 0 2px rgba(122,135,103,.4);
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translate(var(--dx), 105vh) rotate(var(--rot)); opacity: .2; }
+    }
+
+    /* ---------- Music ---------- */
+    .music {
+      position: fixed; right: 16px; bottom: 20px; z-index: 45;
+      width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+      background: rgba(63,74,54,.85); color: #fff; display: none; place-items: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+    }
+    .music.ready { display: grid; }
+    .music svg { width: 20px; height: 20px; }
+    .music.playing svg { animation: spin 4s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .petals { display: none; }
+      * { animation: none !important; }
+    }
+    @media (max-width: 360px) {
+      .hero__names { font-size: 48px; }
+      .datebar .side { width: 88px; font-size: 11.5px; }
+      .families__grid { grid-template-columns: 1fr; }
+      .families__grid .vr { height: 1px; width: 60px; margin: 0 auto; }
+    }
+    /* Desktop overrides (kept last so they win) */
+    @media (min-width: 768px) {
+      section { padding: 96px 40px; }
+      h2.title { font-size: 44px; }
+      .hero img { object-position: 50% 22%; }
+      .grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .grid .wide { grid-column: span 3; }
+      .grid .wide img, .grid button:last-child img { aspect-ratio: 21/9; }
+      .grid button:last-child { grid-column: span 3; }
+      .grid button:last-child img { object-position: 50% 88%; }
+    }
+  </style>
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
+<body class="locked">
 
-  <main>
-    <section class="hero">
-      <img class="hero__image" src="images/photo-4.jpeg" alt="Bảo Duy và Uyên Phương">
-      <div class="hero__veil"></div>
-      <div class="hero__content">
-        <p class="eyebrow light">THE BEGINNING OF FOREVER</p>
-        <h1>Bảo Duy<br>Uyên Phương</h1>
-        <p class="hero__date">31.10.2026</p>
-      </div>
-    </section>
-
-    <section id="welcome" class="intro section">
-      <p class="eyebrow">CHÚNG MÌNH SẮP CƯỚI</p>
-      <div class="ornament">✦</div>
-      <h2>Một hành trình mới<br><em>đang bắt đầu.</em></h2>
-      <p class="lead">
-        Và chúng mình thật hạnh phúc khi có những người thân yêu
-        đồng hành trong khoảnh khắc đặc biệt này.
-      </p>
-    </section>
-
-    <section class="editorial section">
-      <div class="editorial__header reveal">
-        <p class="eyebrow">OUR STORY</p>
-        <p class="small-note">A collection of moments<br>before forever.</p>
-      </div>
-
-      <div class="photo-grid">
-        <figure class="photo photo--wide reveal">
-          <img src="images/photo-1.jpeg" alt="Ảnh cưới Bảo Duy và Uyên Phương" loading="lazy">
-        </figure>
-        <figure class="photo photo--portrait reveal">
-          <img src="images/photo-2.jpeg" alt="Ảnh cưới Bảo Duy và Uyên Phương" loading="lazy">
-        </figure>
-        <figure class="photo photo--landscape reveal">
-          <img src="images/photo-3.jpeg" alt="Ảnh cưới Bảo Duy và Uyên Phương" loading="lazy">
-        </figure>
-      </div>
-    </section>
-
-    <section class="day section">
-      <div class="day__inner reveal">
-        <p class="eyebrow">OUR WEDDING DAY</p>
-        <div class="date-lockup">
-          <span>31</span>
+  <!-- Envelope -->
+  <div class="envelope" id="envelope">
+    <div>
+      <div class="env" id="env" role="button" tabindex="0" aria-label="Mở thiệp">
+        <div class="env__back"></div>
+        <div class="env__letter">
           <div>
-            <b>OCTOBER</b>
-            <small>2026 · THỨ BẢY</small>
+            <small>SAVE THE DATE</small>
+            <div class="script">Thuận &amp; Uyên</div>
+            <small>29 · 12 · 2026</small>
           </div>
         </div>
+        <div class="env__front"></div>
+        <div class="env__flap"></div>
+        <div class="env__seal">T&amp;U</div>
+      </div>
+      <div class="envelope__hint">
+        <p class="envelope__guest" id="guestGreeting"></p>
+        <p class="envelope__tap">CHẠM ĐỂ MỞ THIỆP</p>
+      </div>
+    </div>
+  </div>
 
-        <div class="rule"></div>
+  <div class="petals" id="petals" aria-hidden="true"></div>
 
-        <div class="event">
-          <p class="event__time">17:30</p>
-          <h3>GRAND PALACE</h3>
-          <p>SẢNH 2</p>
-          <p>CẦU HÀ THANH 2<br>P. QUY NHƠN, T. GIA LAI</p>
-          <a class="button" href="#map">
-            XEM BẢN ĐỒ <span>↓</span>
-          </a>
-        </div>
+  <main class="card">
 
-        <div class="lunar">NHẰM NGÀY 22 THÁNG 09 NĂM BÍNH NGỌ</div>
+    <!-- Hero -->
+    <section class="hero">
+      <img src="images/uyenthuan/ut-1.jpg" alt="Chung Thuận và Kim Uyên">
+      <div class="hero__top"><p class="eyebrow">Save the date</p></div>
+      <div class="hero__bottom">
+        <h1 class="hero__names">Chung Thuận<span>&amp;</span>Kim Uyên</h1>
+        <p class="hero__date">29.12.2026</p>
       </div>
     </section>
 
-    <section class="map section" id="map">
-      <div class="map__inner reveal">
-        <div class="map__copy">
-          <p class="eyebrow">ĐƯỜNG ĐẾN TIỆC CƯỚI</p>
-          <h2>Grand Palace</h2>
-          <p class="map__place">Sảnh 2 · 17:30</p>
-          <p class="map__address">Cầu Hà Thanh 2<br>P. Quy Nhơn, T. Gia Lai</p>
-          <p class="map__hint">Mặt đường Võ Nguyên Giáp, ngay khu vực cầu Hà Thanh.</p>
-          <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=13.7880839,109.2205221" target="_blank" rel="noopener">
-            CHỈ ĐƯỜNG <span>↗</span>
-          </a>
-        </div>
-        <div class="map__frame">
-          <iframe
-            title="Bản đồ Grand Palace, Cầu Hà Thanh 2, Quy Nhơn"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=109.2085%2C13.7785%2C109.2325%2C13.7975&amp;layer=mapnik&amp;marker=13.7880839%2C109.2205221"
-            loading="eager"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+    <!-- Quote -->
+    <section class="quote">
+      <p class="reveal">“Hai trái tim cùng chung một nhịp,<br>dựng nên một mái ấm đủ vững<br>để đi cùng nhau mãi mãi.”</p>
+      <small class="reveal">When two hearts beat as one</small>
+    </section>
+
+    <!-- Couple -->
+    <section class="couple">
+      <p class="eyebrow reveal">Cô dâu &amp; Chú rể</p>
+      <div class="couple__grid">
+        <figure class="person reveal">
+          <img src="images/uyenthuan/ut-groom.jpg" alt="Chú rể Đinh Chung Thuận" style="object-position: 50% 0%">
+          <p class="person__role">CHÚ RỂ</p>
+          <p class="person__name">Chung Thuận</p>
+          <p class="person__full">Đinh Chung Thuận</p>
+        </figure>
+        <figure class="person reveal">
+          <img src="images/uyenthuan/ut-bride.jpg" alt="Cô dâu Huỳnh Thị Kim Uyên" style="object-position: 50% 25%">
+          <p class="person__role">CÔ DÂU</p>
+          <p class="person__name">Kim Uyên</p>
+          <p class="person__full">Huỳnh Thị Kim Uyên</p>
+        </figure>
       </div>
     </section>
 
-    <section class="invitation section">
-      <div class="card reveal">
-        <svg class="card__flower card__flower--top" viewBox="0 0 80 120" fill="none" aria-hidden="true">
-          <path d="M42 112c-1-22 6-34 6-52" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M46 78c14 1 22 12 16 22" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M40 84c-12 4-20 14-14 22" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M40 48c-8 1-14 10-12 18 6-4 12-5 16-2" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M48 46c8 3 12 12 8 20-6-3-12-4-16-1" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M44 22c6 8 6 16 1 24-7-6-10-14-8-22 3 1 5 1 7-2z" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M30 30c8 4 14 12 12 22-8-2-14-8-16-16 1-2 2-4 4-6z" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M56 34c-4 8-4 16-12 20 2-8 6-14 12-18 0 0 1-1 0-2z" stroke="currentColor" stroke-width="0.8"/>
-        </svg>
-        <p class="guest-greeting" id="guestGreeting" hidden></p>
-        <p class="card__small">CHUNG VUI<br>CÙNG VỚI GIA ĐÌNH CHÚNG TÔI</p>
-        <h2>Bảo Duy</h2>
-        <p class="and"><span>&amp;</span></p>
-        <h2>Uyên Phương</h2>
-        <div class="card__line"></div>
-        <p class="card__copy">TRÂN TRỌNG KÍNH MỜI<br>
-          ĐẾN DỰ BUỔI TIỆC CHUNG VUI CÙNG GIA ĐÌNH CHÚNG TÔI
-        </p>
-        <p class="card__venue">GRAND PALACE<br><span>SẢNH 2</span></p>
-        <p class="card__address">CẦU HÀ THANH 2, P. QUY NHƠN, T. GIA LAI</p>
-        <p class="card__time">VÀO LÚC 17 GIỜ 30<br><strong>THỨ BẢY — 31.10.2026</strong></p>
-        <p class="card__lunar">(NHẰM NGÀY 22 THÁNG 09 NĂM BÍNH NGỌ)</p>
-        <p class="card__copy card__copy--bottom">
-          SỰ HIỆN DIỆN CỦA QUÝ KHÁCH<br>
-          LÀ NIỀM VINH HẠNH CHO GIA ĐÌNH CHÚNG TÔI
-        </p>
-        <p class="card__small">KÍNH MỜI!</p>
-        <svg class="card__flower card__flower--bottom" viewBox="0 0 80 120" fill="none" aria-hidden="true">
-          <path d="M42 112c-1-22 6-34 6-52" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M46 78c14 1 22 12 16 22" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M40 84c-12 4-20 14-14 22" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M40 48c-8 1-14 10-12 18 6-4 12-5 16-2" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M48 46c8 3 12 12 8 20-6-3-12-4-16-1" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M44 22c6 8 6 16 1 24-7-6-10-14-8-22 3 1 5 1 7-2z" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M30 30c8 4 14 12 12 22-8-2-14-8-16-16 1-2 2-4 4-6z" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M56 34c-4 8-4 16-12 20 2-8 6-14 12-18 0 0 1-1 0-2z" stroke="currentColor" stroke-width="0.8"/>
-        </svg>
-      </div>
-    </section>
-
-    <section class="countdown section">
-      <div class="reveal">
-        <p class="eyebrow light">COUNTING DOWN TO FOREVER</p>
-        <h2>Hẹn gặp bạn<br><em>ngày chúng mình cưới.</em></h2>
-        <div class="timer" id="countdown">
-          <div><strong data-unit="days">--</strong><span>NGÀY</span></div>
-          <div><strong data-unit="hours">--</strong><span>GIỜ</span></div>
-          <div><strong data-unit="minutes">--</strong><span>PHÚT</span></div>
-          <div><strong data-unit="seconds">--</strong><span>GIÂY</span></div>
+    <!-- Families -->
+    <section class="families">
+      <p class="eyebrow reveal">Gia đình hai bên</p>
+      <div class="divider reveal">✦</div>
+      <div class="families__grid">
+        <div class="family reveal">
+          <h3>NHÀ TRAI</h3>
+          <p>Ông <b>Đinh Văn Thọ</b><br>Bà <b>Nguyễn Thị Thúy</b></p>
+          <p class="addr">Nguyễn Huệ,<br>Quy Nhơn, Gia Lai</p>
+        </div>
+        <div class="vr"></div>
+        <div class="family reveal">
+          <h3>NHÀ GÁI</h3>
+          <p>Ông <b>Huỳnh Kim Lực</b><br>Bà <b>Trần Thị Hồng Hạnh</b></p>
+          <p class="addr">Trường Vĩnh Kỳ,<br>Quy Nhơn Đông, Gia Lai</p>
         </div>
       </div>
-    </section>
-
-    <section class="final-photo">
-      <img src="images/photo-2.jpeg" alt="Bảo Duy và Uyên Phương" loading="lazy">
-      <div class="final-photo__veil"></div>
-      <div class="final-photo__content reveal">
-        <p class="eyebrow light">WITH LOVE</p>
-        <h2>Bảo Duy<br><em>&amp;</em><br>Uyên Phương</h2>
-        <p>31.10.2026</p>
-        <div class="final-photo__line"></div>
-        <p class="thank-you">Cảm ơn bạn đã trở thành một phần<br>trong ngày đặc biệt của chúng mình.</p>
+      <div class="invite-line reveal">
+        <p class="script">Trân trọng kính mời</p>
+        <p>Quý khách đến dự buổi lễ thành hôn và chung vui cùng gia đình chúng tôi.</p>
       </div>
     </section>
+
+    <!-- Events -->
+    <section class="event">
+      <p class="eyebrow reveal">Sự kiện cưới</p>
+      <h2 class="title reveal">Lễ Thành Hôn</h2>
+
+      <div class="event__block reveal">
+        <p class="event__name"> tại tư gia</p>
+        <p class="event__time">10:30 · THỨ BA</p>
+        <div class="datebar">
+          <div class="side">THÁNG 12</div>
+          <div class="day">29</div>
+          <div class="side">NĂM 2026</div>
+        </div>
+        <p class="lunar">(Tức ngày 21 tháng 11 năm Bính Ngọ)</p>
+        <div class="venue">
+          <strong>Tại tư gia</strong>
+          <span>Nhà trai: Nguyễn Huệ, Quy Nhơn, Gia Lai</span>
+          <span>Nhà gái: Trường Vĩnh Kỳ, Quy Nhơn Đông, Gia Lai</span>
+        </div>
+      </div>
+
+      <div class="event__block reveal">
+        <p class="event__name">Tiệc cưới</p>
+        <p class="event__time">THỨ BA · 29.12.2026</p>
+        <div class="times">
+          <div><b>17:30</b><small>Đón khách</small></div>
+          <div><b>18:00</b><small>Khai tiệc</small></div>
+        </div>
+        <div class="venue">
+          <strong>Nhà hàng tiệc cưới Trầu Cau 2</strong>
+          <span>Sảnh 2 – Tầng 2</span>
+          <span>B. Lê Lợi nối dài (Bờ hồ sinh thái Thái Đồng Ba),<br>Quy Nhơn, Gia Lai</span>
+        </div>
+        <a class="btn" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&query=Nh%C3%A0%20h%C3%A0ng%20Tr%E1%BA%A7u%20Cau%202%20L%C3%AA%20L%E1%BB%A3i%20Quy%20Nh%C6%A1n">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          XEM BẢN ĐỒ
+        </a>
+      </div>
+    </section>
+
+    <!-- Banner -->
+    <section class="banner">
+      <img src="images/uyenthuan/ut-2.jpg" alt="Chung Thuận và Kim Uyên" loading="lazy">
+      <p class="banner__caption"><small>JUST</small>Married</p>
+    </section>
+
+    <!-- Calendar + countdown -->
+    <section class="calendar">
+      <p class="eyebrow reveal">Ngày chung đôi</p>
+      <div class="cal reveal">
+        <p class="cal__head">THÁNG 12 · 2026</p>
+        <div class="cal__grid" id="calGrid"></div>
+      </div>
+      <div class="countdown reveal" id="countdown">
+        <div><b data-u="d">0</b><small>Ngày</small></div>
+        <div><b data-u="h">0</b><small>Giờ</small></div>
+        <div><b data-u="m">0</b><small>Phút</small></div>
+        <div><b data-u="s">0</b><small>Giây</small></div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="schedule">
+      <p class="eyebrow reveal">Tiệc cưới tối 29.12</p>
+      <h2 class="title reveal">Timeline</h2>
+      <ol class="timeline">
+        <li class="reveal"><time>17:30</time><div><b>Đón khách</b><span>Chụp ảnh lưu niệm cùng cô dâu chú rể</span></div></li>
+        <li class="reveal"><time>18:00</time><div><b>Khai tiệc</b><span>Nghi lễ và lời cảm ơn từ hai gia đình</span></div></li>
+        <li class="reveal"><time>18:30</time><div><b>Tiệc chung vui</b><span>Cùng dùng bữa và nâng ly chúc mừng</span></div></li>
+        <li class="reveal"><time>19:30</time><div><b>Giao lưu âm nhạc</b><span>Hát hò, nhậu nhẹt</span></div></li>
+      </ol>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+      <p class="eyebrow reveal">Album ảnh cưới</p>
+      <h2 class="title reveal">Story <em>of</em> Love</h2>
+      <div class="grid" id="gallery">
+        <button class="wide reveal" data-i="0"><img src="images/uyenthuan/ut-3.jpg" alt="Ảnh cưới 1" loading="lazy"></button>
+        <button class="reveal" data-i="1"><img src="images/uyenthuan/ut-4.jpg" alt="Ảnh cưới 2" loading="lazy"></button>
+        <button class="reveal" data-i="2"><img src="images/uyenthuan/ut-6.jpg" alt="Ảnh cưới 3" loading="lazy"></button>
+        <button class="reveal" data-i="3"><img src="images/uyenthuan/ut-1.jpg" alt="Ảnh cưới 4" loading="lazy"></button>
+        <button class="reveal" data-i="4"><img src="images/uyenthuan/ut-2.jpg" alt="Ảnh cưới 5" loading="lazy"></button>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="closing">
+      <img src="images/uyenthuan/ut-5.jpg" alt="Chung Thuận và Kim Uyên" loading="lazy">
+      <div class="closing__text">
+        <p class="script">Thank you</p>
+        <p>Sự hiện diện của Quý khách là niềm vinh hạnh<br>cho gia đình chúng tôi.</p>
+      </div>
+    </section>
+    <footer>THUẬN &amp; UYÊN · 29.12.2026</footer>
   </main>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox__close" aria-label="Đóng">×</button>
-    <img id="lightboxImage" src="" alt="">
+    <img id="lbImg" alt="">
+    <button class="lb-close" id="lbClose" aria-label="Đóng">×</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Ảnh trước">‹</button>
+    <button class="lb-next" id="lbNext" aria-label="Ảnh sau">›</button>
+    <p class="lb-count" id="lbCount"></p>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Thêm file nhạc: đặt vào images/uyenthuan/music.mp3 là nút nhạc tự hiện -->
+  <audio id="bgm" src="images/uyenthuan/music.mp3" loop preload="none"></audio>
+  <button class="music" id="musicBtn" aria-label="Bật/tắt nhạc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  </button>
+
+  <script>
+    // ---- Guest greeting: ?ten=bạn%20A ----
+    (() => {
+      const raw = new URLSearchParams(location.search).get("ten");
+      const name = raw ? raw.replace(/\s+/g, " ").trim().slice(0, 48) : "";
+      if (name) document.querySelector("#guestGreeting").textContent = "Thân gửi " + name;
+    })();
+
+    // ---- Envelope ----
+    const envelope = document.querySelector("#envelope");
+    const env = document.querySelector("#env");
+    const audio = document.querySelector("#bgm");
+    const musicBtn = document.querySelector("#musicBtn");
+    let opened = false;
+
+    function openEnvelope() {
+      if (opened) return;
+      opened = true;
+      env.classList.add("open");
+      tryPlay();
+      setTimeout(() => {
+        envelope.classList.add("gone");
+        document.body.classList.remove("locked");
+        startPetals();
+      }, 1700);
+    }
+    env.addEventListener("click", openEnvelope);
+    env.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openEnvelope(); } });
+
+    // ---- Music (only shown when the file exists) ----
+    function tryPlay() {
+      audio.play().then(() => {
+        musicBtn.classList.add("ready", "playing");
+      }).catch(() => {});
+    }
+    audio.addEventListener("canplay", () => musicBtn.classList.add("ready"));
+    musicBtn.addEventListener("click", () => {
+      if (audio.paused) { audio.play(); musicBtn.classList.add("playing"); }
+      else { audio.pause(); musicBtn.classList.remove("playing"); }
+    });
+
+    // ---- Petals ----
+    function startPetals() {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const box = document.querySelector("#petals");
+      let count = 0;
+      const spawn = () => {
+        const p = document.createElement("span");
+        p.className = "petal";
+        const dur = 7 + Math.random() * 6;
+        const size = 8 + Math.random() * 8;
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.width = size + "px";
+        p.style.height = size * .8 + "px";
+        p.style.animationDuration = dur + "s";
+        p.style.setProperty("--dx", (Math.random() * 160 - 80) + "px");
+        p.style.setProperty("--rot", (Math.random() * 720 - 360) + "deg");
+        box.appendChild(p);
+        setTimeout(() => p.remove(), dur * 1000);
+        if (++count < 60) setTimeout(spawn, 350 + Math.random() * 500);
+      };
+      spawn();
+    }
+
+    // ---- Scroll reveal ----
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: .15 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // ---- Calendar: December 2026, Monday-first ----
+    (() => {
+      const grid = document.querySelector("#calGrid");
+      ["T2","T3","T4","T5","T6","T7","CN"].forEach((w) => grid.insertAdjacentHTML("beforeend", `<div class="wd">${w}</div>`));
+      const first = (new Date(2026, 11, 1).getDay() + 6) % 7;
+      for (let i = 0; i < first; i++) grid.insertAdjacentHTML("beforeend", `<div></div>`);
+      for (let d = 1; d <= 31; d++) grid.insertAdjacentHTML("beforeend", `<div class="d${d === 29 ? " mark" : ""}">${d}</div>`);
+    })();
+
+    // ---- Countdown to 10:30 29/12/2026 (Vietnam time) ----
+    (() => {
+      const target = new Date("2026-12-29T10:30:00+07:00").getTime();
+      const el = (u) => document.querySelector(`#countdown [data-u="${u}"]`);
+      const tick = () => {
+        const diff = Math.max(0, target - Date.now());
+        el("d").textContent = Math.floor(diff / 864e5);
+        el("h").textContent = String(Math.floor(diff / 36e5) % 24).padStart(2, "0");
+        el("m").textContent = String(Math.floor(diff / 6e4) % 60).padStart(2, "0");
+        el("s").textContent = String(Math.floor(diff / 1e3) % 60).padStart(2, "0");
+      };
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ---- Lightbox ----
+    (() => {
+      const imgs = [...document.querySelectorAll("#gallery img")].map((i) => i.src);
+      const lb = document.querySelector("#lightbox");
+      const lbImg = document.querySelector("#lbImg");
+      const count = document.querySelector("#lbCount");
+      let idx = 0;
+      const show = (i) => {
+        idx = (i + imgs.length) % imgs.length;
+        lbImg.src = imgs[idx];
+        count.textContent = `${idx + 1} / ${imgs.length}`;
+      };
+      document.querySelectorAll("#gallery button").forEach((b) =>
+        b.addEventListener("click", () => { show(+b.dataset.i); lb.classList.add("show"); lb.setAttribute("aria-hidden", "false"); }));
+      const close = () => { lb.classList.remove("show"); lb.setAttribute("aria-hidden", "true"); };
+      document.querySelector("#lbClose").onclick = close;
+      document.querySelector("#lbPrev").onclick = () => show(idx - 1);
+      document.querySelector("#lbNext").onclick = () => show(idx + 1);
+      lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+      document.addEventListener("keydown", (e) => {
+        if (!lb.classList.contains("show")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowLeft") show(idx - 1);
+        if (e.key === "ArrowRight") show(idx + 1);
+      });
+      let x0 = null;
+      lb.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+    })();
+  </script>
 </body>
 </html>
